@@ -2,6 +2,7 @@ package v3;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -12,6 +13,7 @@ public class Server {
     private Vector<Socket> sockets;
     private Vector<Client> clients;
     private UI ui;
+    MsgTool msgTool=new MsgTool();
 
     public Server() throws IOException {
         this.init(12345);
@@ -31,10 +33,16 @@ public class Server {
         return socket;
     }
 
-    public void readMsg(Socket socket) throws IOException {
+    public Integer readMsg(Socket socket) throws IOException {
         InputStream is=socket.getInputStream();
-        Integer outMsg=is.read();
+        int outMsg=msgTool.readInt(is);
         ui.getTextArea().append("用户1"+":"+outMsg+"\n");
+        return outMsg;
+    }
+
+    public void transmit(Socket socket,Integer msg) throws IOException{
+        OutputStream os=socket.getOutputStream();
+        msgTool.writeInt(os,msg);
     }
 
     public Vector<Socket> getSockets() {
@@ -58,7 +66,7 @@ public class Server {
             throw new RuntimeException(e);
         }
 
-        ConnectTheard connects = new ConnectTheard(server, server.clients);
+        ConnectTheard connects = new ConnectTheard(server);
         new Thread(connects).start();
     }
 }
