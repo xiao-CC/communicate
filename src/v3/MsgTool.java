@@ -33,7 +33,6 @@ public class MsgTool {
             this.is=inputStream;
             int[] msg=new int[4];
             for (int i=0;i<4;i++){
-                //开启两个客户端1和2。当先用2给服务器发送，再用1给服务器发送时，会卡到这里
                 msg[i]=is.read();
             }
             for (int i=0;i<4;i++){

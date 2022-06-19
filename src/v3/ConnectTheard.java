@@ -1,12 +1,12 @@
 package v3;
 
 import java.net.Socket;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class ConnectTheard implements Runnable{
 
     private Server server;
-    private volatile Vector<Socket> sockets=new Vector<>();
+    private volatile ArrayList<Socket> sockets=new ArrayList<>();
 
     public ConnectTheard(Server server) {
         this.server=server;

@@ -27,8 +27,9 @@ public class Client {
     }
 
     public void readMsg() throws IOException {
-        InputStream is=socket.getInputStream();
+
         while (true){
+            InputStream is=socket.getInputStream();
             int outMsg=msgTool.readInt(is);
             ui.getTextArea().append("用户1"+":"+outMsg+"\n");
         }
@@ -42,9 +43,6 @@ public class Client {
     }
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public static void main(String[] args) throws IOException {
